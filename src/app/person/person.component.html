@@ -1,11 +1,10 @@
+<h1>Persons</h1>
 <div class="products">
-    <div class="products__list">
-        <div *ngIf="!((persons$ | async)?.length)">
-            No Persons, add one to get started.
-        </div>
-        <div>{{ (persons$ | async) | json }}</div>
-        <div *ngFor="let person of (persons$ | async)">
-            <span>{{ person.firstname }}</span>
-        </div>
-    </div>
+  <ul class="products-list">
+    <li *ngFor="let person of (persons$ | async)">
+      <span>ID: {{ person.userId }}</span><br />
+      <span>First name: {{ person.firstname }}</span><br />
+      <span>Last name: {{ person.lastname }}</span><br />
+    </li>
+  </ul>
 </div>

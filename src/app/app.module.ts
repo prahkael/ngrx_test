@@ -3,7 +3,6 @@ import { NgModule }              from '@angular/core';
 import { CommonModule }          from '@angular/common';
 import { HttpClientModule }      from '@angular/common/http';
 import { ReactiveFormsModule }   from '@angular/forms';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 import { AppComponent }          from './app.component';
 import { PersonComponent }       from './person/person.component';
@@ -15,7 +14,7 @@ import { Routes, RouterModule }  from '@angular/router';
 import { StoreDevtoolsModule }   from '@ngrx/store-devtools';
 import { storeFreeze }           from 'ngrx-store-freeze';
 
-import { reducers }              from '../store/selectors';
+import { reducers }              from './person/_store';
 
 const environment = {
   development: true,
@@ -27,9 +26,11 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
   : [];
 
   export const ROUTES: Routes = [
-    { path: '', pathMatch: 'full', redirectTo: 'overview' },
-    {
-      path: 'overview',
+    { path: '',
+      pathMatch: 'full',
+      redirectTo: 'persons' },
+
+    { path: 'persons',
       component: PersonComponent,
     },
   ];
@@ -46,8 +47,6 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
     HttpClientModule,
     RouterModule.forRoot(ROUTES),
     StoreModule.forRoot(reducers, { metaReducers }),
-    // StoreModule.forFeature('overview', reducers),
-    StoreRouterConnectingModule,
     environment.development ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [],
